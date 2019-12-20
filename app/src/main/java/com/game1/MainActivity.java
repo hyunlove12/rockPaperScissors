@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     //판정 결과
     TextView txtResult;
+
     Button.OnClickListener onButtonClick = new Button.OnClickListener(){
         @Override
         public void onClick(View v) {
@@ -54,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
-
     //게임 승패 처리
     private void setGameResult() {
         //컴퓨터 가위바위보 값 결정
@@ -87,8 +87,12 @@ public class MainActivity extends AppCompatActivity {
         imgViewYou.setImageResource(image[you]);
         imgViewCom.setImageResource(image[com]);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        System.out.println("인트값 확인 " + image[0]);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -103,9 +107,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        for(int i : image) {
-            //자동으로 뒷자리만 더해주는 것?
-            findViewById(R.id.imageButton0 + i).setOnClickListener(onButtonClick);
+        //id 값
+        System.out.println(R.id.imageButton0 + "값 확인 " );
+        System.out.println(R.id.imageButton1 + "값 확인 " );
+        System.out.println(R.id.imageButton2 + "값 확인 " );
+
+        for(int i = 0; i < image.length; i++) {
+            //스트링형도 아니고....
+            //R.id.imageButton0 -> int값으로 저장되나?
+            //findViewById(R.id.imageButton0 + i).setOnClickListener(onButtonClick);
+
+            String buttonID = "imageButton" + i ;
+            int resID = getResources().getIdentifier(buttonID, "id",  this.getPackageName());
+            findViewById(resID).setOnClickListener(onButtonClick);
         }
 
         imgViewYou = (ImageView)findViewById(R.id.imageView3);
